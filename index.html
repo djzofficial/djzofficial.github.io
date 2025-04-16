@@ -13,7 +13,6 @@
     gtag('js', new Date());
     gtag('config', 'G-5ZL0F3VE66');
   </script>
-  <!-- End Google Analytics -->
 
   <style>
     body {
@@ -22,6 +21,7 @@
       background-color: #0d0d0d;
       color: #f0f0f0;
       font-size: 1.5em;
+      overflow-x: hidden;
     }
 
     header {
@@ -43,7 +43,6 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      -webkit-overflow-scrolling: touch;
     }
 
     nav::-webkit-scrollbar {
@@ -60,7 +59,6 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      flex: 0 0 auto;
     }
 
     nav button.active, nav button:hover {
@@ -108,11 +106,27 @@
       background-color: #00ddaa;
     }
 
-    #thank-you {
+    #confetti-screen {
       display: none;
-      margin-top: 1em;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: #000000ee;
       color: #00ffcc;
-      font-weight: bold;
+      z-index: 9999;
+      text-align: center;
+      padding-top: 30vh;
+      font-size: 2em;
+    }
+
+    canvas#confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10000;
+      pointer-events: none;
     }
 
     footer {
@@ -146,13 +160,11 @@
     <section id="home" class="section active">
       <h2>Welcome to DJZ’s Official Website</h2>
       <p>I’m DJZ, a beat-dropping, light-synced, energy-pumping event specialist. Whether you need music, lighting, karaoke, or a full party experience — I’ve got you covered.</p>
-      <p>Let’s make your event unforgettable.</p>
     </section>
 
     <section id="about" class="section">
       <h2>About Me</h2>
       <p>I’m DJZ — a young tech-savvy DJ who runs live sound, lighting, karaoke, and digital events. I love creating unforgettable experiences for people through rhythm, lights, and energy.</p>
-      <h3>My Portable Gear Setup:</h3>
       <ul>
         <li>Newmark Party Mix II DJ Controller</li>
         <li>Behringer XR12 Digital Mixer</li>
@@ -178,7 +190,7 @@
       <h2>Book DJZ</h2>
       <p>Fill out the form below to request your event — I'll be in touch with you shortly!</p>
 
-      <form action="https://formspree.io/f/mnnpyadz" method="POST" onsubmit="showThankYou(event)">
+      <form action="https://formspree.io/f/mnnpyadz" method="POST" onsubmit="confettiSubmit(event)">
         <label>1. What is your name?</label>
         <input type="text" name="name" required />
 
@@ -208,8 +220,6 @@
 
         <button type="submit" class="book-button">Send Request</button>
       </form>
-
-      <div id="thank-you">Thank you for submitting! I’ll be in touch with you shortly about your appointment.</div>
     </section>
 
     <section id="contact" class="section">
@@ -220,11 +230,17 @@
     </section>
   </main>
 
+  <div id="confetti-screen">
+    Thank you for submitting! I’ll be in contact with you shortly about your appointment.
+  </div>
+  <canvas id="confetti-canvas"></canvas>
+
   <footer>
     <p>© 2025 DJZ. All rights reserved.</p>
     <p><strong>Accessibility:</strong> This site works with screen readers, keyboard navigation, and mobile devices. If something doesn’t work for you, please email <a href="mailto:booking.djz1@gmail.com">booking.djz1@gmail.com</a>.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     function showSection(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -235,10 +251,9 @@
 
     document.body.setAttribute("data-loaded", "true");
 
-    function showThankYou(event) {
+    function confettiSubmit(event) {
       event.preventDefault();
       const form = event.target;
-      const thankYou = document.getElementById('thank-you');
 
       fetch(form.action, {
         method: "POST",
@@ -246,13 +261,44 @@
         headers: { 'Accept': 'application/json' }
       }).then(response => {
         if (response.ok) {
-          form.reset();
-          thankYou.style.display = 'block';
+          form.style.display = "none";
+          document.getElementById("confetti-screen").style.display = "block";
+          fireConfetti();
+          setTimeout(() => {
+            location.href = "#home";
+            document.getElementById("confetti-screen").style.display = "none";
+            form.style.display = "block";
+            form.reset();
+          }, 10000);
         } else {
-          thankYou.innerText = "Something went wrong. Please try again later.";
-          thankYou.style.display = 'block';
+          alert("Something went wrong. Please try again.");
         }
       });
+    }
+
+    function fireConfetti() {
+      const duration = 4 * 1000;
+      const end = Date.now() + duration;
+      const canvas = document.getElementById('confetti-canvas');
+      const confettiInstance = confetti.create(canvas, { resize: true });
+
+      (function frame() {
+        confettiInstance({
+          particleCount: 2,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+        });
+        confettiInstance({
+          particleCount: 2,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+        });
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
     }
   </script>
 
