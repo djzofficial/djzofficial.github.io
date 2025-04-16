@@ -1,178 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DJZ – Official Website</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0d0d0d;
-      color: #f0f0f0;
-      font-size: 1.5em;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0d0d0d;
+    color: #f0f0f0;
+    font-size: 1.5em;
+  }
 
-    header {
-      background-color: #00ffcc;
-      color: #000;
-      padding: 2em;
-      text-align: center;
-      font-size: 2.5em;
-      font-weight: bold;
+  header {
+    background-color: #00ffcc;
+    color: #000;
+    padding: 2em;
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+
+  nav {
+    display: flex;
+    justify-content: flex-start;
+    background: #1a1a1a;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 1em;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  nav::-webkit-scrollbar {
+    display: none; /* Hide scrollbar on mobile */
+  }
+
+  nav button {
+    margin: 0 0.5em;
+    padding: 0.75em 1.5em;
+    font-size: 1em;
+    background: #00ffcc;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+
+  nav button.active,
+  nav button:hover {
+    background-color: #00ddaa;
+  }
+
+  .section {
+    display: none;
+    max-width: 900px;
+    margin: auto;
+    padding: 2em;
+  }
+
+  .section.active {
+    display: block;
+  }
+
+  h2 {
+    color: #00ffcc;
+    margin-top: 0;
+  }
+
+  .book-button, .social-link {
+    display: inline-block;
+    margin: 1em 0;
+    padding: 1em 2em;
+    background-color: #00ffcc;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+
+  .book-button:hover, .social-link:hover {
+    background-color: #00ddaa;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2em;
+    font-size: 0.9em;
+    background: #1a1a1a;
+    margin-top: 2em;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      font-size: 1.2em;
     }
 
     nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: #1a1a1a;
-      padding: 1em;
-      position: sticky;
-      top: 0;
-      z-index: 999;
+      justify-content: flex-start;
     }
 
     nav button {
-      margin: 0.5em;
-      padding: 0.75em 1.5em;
-      font-size: 1em;
-      background: #00ffcc;
-      color: #000;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+      margin: 0 0.3em;
     }
-
-    nav button.active, nav button:hover {
-      background-color: #00ddaa;
-    }
-
-    .section {
-      display: none;
-      max-width: 900px;
-      margin: auto;
-      padding: 2em;
-    }
-
-    .section.active {
-      display: block;
-    }
-
-    h2 {
-      color: #00ffcc;
-      margin-top: 0;
-    }
-
-    .book-button, .social-link {
-      display: inline-block;
-      margin: 1em 0;
-      padding: 1em 2em;
-      background-color: #00ffcc;
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 8px;
-    }
-
-    .book-button:hover, .social-link:hover {
-      background-color: #00ddaa;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2em;
-      font-size: 0.9em;
-      background: #1a1a1a;
-      margin-top: 2em;
-    }
-
-    @media (max-width: 768px) {
-      body { font-size: 1.2em; }
-      nav { flex-direction: column; }
-      nav button { width: 90%; }
-    }
-  </style>
-</head>
-<body>
-
-  <header>DJZ – Lighting. Sound. Hype.</header>
-
-  <nav>
-    <button onclick="showSection('home')" class="active">Home</button>
-    <button onclick="showSection('about')">About Me</button>
-    <button onclick="showSection('services')">Packages</button>
-    <button onclick="showSection('gear')">My Gear</button>
-    <button onclick="showSection('book')">Book Me</button>
-    <button onclick="showSection('contact')">Contact</button>
-  </nav>
-
-  <main>
-    <section id="home" class="section active">
-      <h2>Welcome to DJZ’s Official Website</h2>
-      <p>I’m DJZ, a beat-dropping, light-synced, energy-pumping event specialist. Whether you need music, lighting, karaoke, or a full party experience — I’ve got you covered.</p>
-      <p>Let’s make your event unforgettable.</p>
-    </section>
-
-    <section id="about" class="section">
-      <h2>About Me</h2>
-      <p>I’m DJZ — a young tech-savvy DJ who runs live sound, lighting, karaoke, and digital events. I love creating unforgettable experiences for people through rhythm, lights, and energy.</p>
-      <p>I’m all about accessibility, clean fun, and custom setups that match your exact vibe. Whether you're throwing a school dance or a full-on party, I’ve got you covered.</p>
-    </section>
-
-    <section id="services" class="section">
-      <h2>Packages</h2>
-      <p>Every DJZ package includes:</p>
-      <ul>
-        <li><strong>Lighting</strong> – Custom synced lighting to your sound</li>
-        <li><strong>Sound</strong> – High-quality audio for your entire event</li>
-        <li><strong>Karaoke Displays</strong> – Project lyrics on-screen, live</li>
-      </ul>
-      <p><strong>Pricing:</strong> <em>All gigs are completely free right now.</em></p>
-    </section>
-
-    <section id="gear" class="section">
-      <h2>My Portable Gear Setup</h2>
-      <ul>
-        <li>DJ Controller: Newmark Party Mix II</li>
-        <li>Audio Mixer: Behringer XR12</li>
-        <li>Mixing Device: iPad 10th Generation</li>
-        <li>Speakers: JBL Portable Speakers</li>
-        <li>Microphones: 2 Wireless Mics</li>
-        <li>Lighting: Wired DMX System (4 Fixtures)</li>
-        <li>Projector (Optional) for Karaoke Lyrics</li>
-      </ul>
-      <p>All gear is portable and ready for schools, parties, or outdoor events. Setup time is fast, and control is 100% smart-home integrated.</p>
-    </section>
-
-    <section id="book" class="section">
-      <h2>Book DJZ</h2>
-      <p>Let’s party. Tap below to request a booking. I’ll follow up personally with all the info you need!</p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSep3ohaxYUQJgXnWlXgVnV2qJXupUSUpCGkgnrsfTRwD875uQ/viewform?usp=dialog" class="book-button" target="_blank">Request a Booking</a>
-    </section>
-
-    <section id="contact" class="section">
-      <h2>Contact & Social</h2>
-      <p><strong>Email:</strong> <a href="mailto:booking.djz1@gmail.com">booking.djz1@gmail.com</a></p>
-      <a href="https://www.facebook.com/share/16NeuiRHAU/?mibextid=wwXIfr" target="_blank" class="social-link">Facebook</a><br />
-      <a href="https://www.instagram.com/stevie_zylstra?igsh=eTR4YmtkMndlNXE0&utm_source=qr" target="_blank" class="social-link">Instagram</a>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 DJZ. All rights reserved.</p>
-    <p><strong>Accessibility:</strong> This site is compatible with screen readers, keyboard navigation, and mobile devices. If something doesn’t work for you, email <a href="mailto:booking.djz1@gmail.com">booking.djz1@gmail.com</a>.</p>
-  </footer>
-
-  <script>
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      event.target.classList.add('active');
-    }
-  </script>
-
-</body>
-</html>
+  }
+</style>
