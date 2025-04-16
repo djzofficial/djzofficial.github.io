@@ -1,51 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DJ Z Official Website</title>
-
-  <!-- Google Analytics Tag -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZL0F3VE66"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-5ZL0F3VE66');
-  </script>
-
+  <meta charset="UTF-8">
+  <title>DJZ – Official Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #111;
-      color: white;
-      font-family: Arial, sans-serif;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #0d0d0d;
+      color: #f0f0f0;
       margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.2em;
-    }
-
-    p {
+      padding: 0;
       font-size: 1.5em;
+      line-height: 1.6;
     }
 
-    footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #888;
+    header {
+      background-color: #00ffcc;
+      color: #000;
+      padding: 1em;
+      text-align: center;
+      font-weight: bold;
+      font-size: 2em;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background-color: #1a1a1a;
+      padding: 1em;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav button {
+      background-color: #00ffcc;
+      color: #000;
+      border: none;
+      padding: 1em 1.5em;
+      margin: 0.5em;
+      font-size: 1em;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    nav button:hover,
+    nav button.active {
+      background-color: #00ddaa;
+    }
+
+    .tab {
+      display: none;
+      padding: 2em;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .tab.active {
+      display: block;
+    }
+
+    h1, h2 {
+      color: #00ffcc;
+      margin-top: 0;
+    }
+
+    .book-button {
+      display: inline-block;
+      background-color: #00ffcc;
+      color: #000;
+      padding: 1em 2em;
+      font-size: 1em;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 1em;
+    }
+
+    .book-button:hover {
+      background-color: #00ddaa;
+    }
+
+    a {
+      color: #00ffcc;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 1.2em;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav button {
+        width: 90%;
+        margin: 0.5em 0;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to DJ Z’s Official Site</h1>
-  <p>Drop the beat. Catch the vibe. This is where music lives.</p>
 
-  <footer>
-    &copy; 2025 DJ Z. All rights reserved.
-  </footer>
+  <header>DJZ – Beats That Hit Different</header>
+
+  <nav aria-label="Main navigation">
+    <button onclick="showTab('home')" class="active">Home</button>
+    <button onclick="showTab('about')">About</button>
+    <button onclick="showTab('appointments')">Book Me</button>
+    <button onclick="showTab('contact')">Contact</button>
+  </nav>
+
+  <main>
+    <div id="home" class="tab active">
+      <h1>Welcome to DJZ’s Official Website</h1>
+      <p>Beats that move hearts, shake floors, and light up the night.</p>
+      <p>Whether it's a prom, wedding, birthday, or backyard bash, DJZ brings the energy. Ready to turn your next event into a party you’ll never forget? Let’s make it happen.</p>
+
+      <h2>Accessibility Statement</h2>
+      <p>This website is designed for everyone. It works with screen readers, mobile devices, and keyboard navigation. If anything doesn’t work for you, email <a href="mailto:booking.djz1@gmail.com">booking.djz1@gmail.com</a> and we’ll fix it right away.</p>
+    </div>
+
+    <div id="about" class="tab">
+      <h1>About DJZ</h1>
+      <p>I’m DJZ — a beatmaker, event rocker, and crowd-hyping machine. I specialize in clean mixes, all-ages parties, school dances, and unforgettable vibes.</p>
+      <p>From booming bass to chill melodies, I customize every set to fit your event perfectly. When I’m not rocking the stage, I’m producing music, dialing in my gear, or helping others find their sound.</p>
+    </div>
+
+    <div id="appointments" class="tab">
+      <h1>Book DJZ for Your Event</h1>
+      <p>To lock in your date, hit the button below and fill out the booking form. I’ll follow up with rates and availability ASAP.</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSep3ohaxYUQJgXnWlXgVnV2qJXupUSUpCGkgnrsfTRwD875uQ/viewform?usp=dialog" target="_blank" class="book-button">Book Now</a>
+    </div>
+
+    <div id="contact" class="tab">
+      <h1>Contact Me</h1>
+      <p>Let’s connect! Reach out to book an event, ask a question, or just say hey.</p>
+
+      <p><strong>Email:</strong> <a href="mailto:booking.djz1@gmail.com">booking.djz1@gmail.com</a></p>
+
+      <p>
+        <a href="https://www.facebook.com/share/16NeuiRHAU/?mibextid=wwXIfr" target="_blank" class="book-button">Facebook</a>
+      </p>
+
+      <p>
+        <a href="https://www.instagram.com/stevie_zylstra?igsh=eTR4YmtkMndlNXE0&utm_source=qr" target="_blank" class="book-button">Instagram</a>
+      </p>
+
+      <p>More platforms coming soon — stay tuned!</p>
+    </div>
+  </main>
+
+  <script>
+    function showTab(tabId) {
+      const tabs = document.querySelectorAll('.tab');
+      const buttons = document.querySelectorAll('nav button');
+
+      tabs.forEach(tab => tab.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+
 </body>
 </html>
