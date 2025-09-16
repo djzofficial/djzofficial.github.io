@@ -15,6 +15,7 @@
   </script>
 
   <style>
+    /* ===== BASE STYLES ===== */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -22,8 +23,14 @@
       color: #f0f0f0;
       font-size: 1.5em;
       overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
+    h2, h3 {
+      color: #00ffcc;
+    }
+
+    /* ===== EXPERIMENTAL BANNER ===== */
     .experimental-banner {
       background-color: #ffcc00;
       color: #000;
@@ -31,17 +38,26 @@
       padding: 0.5em;
       font-weight: bold;
       font-size: 0.9em;
+      animation: slideDown 0.8s ease;
     }
 
+    @keyframes slideDown {
+      0% {transform: translateY(-100%); opacity: 0;}
+      100% {transform: translateY(0); opacity: 1;}
+    }
+
+    /* ===== HEADER ===== */
     header {
-      background-color: #00ffcc;
+      background: linear-gradient(135deg, #00ffcc, #00bb99);
       color: #000;
       padding: 2em;
       text-align: center;
       font-size: 2.5em;
       font-weight: bold;
+      animation: fadeIn 1s ease;
     }
 
+    /* ===== NAVIGATION ===== */
     nav {
       display: flex;
       justify-content: flex-start;
@@ -52,6 +68,7 @@
       position: sticky;
       top: 0;
       z-index: 999;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
     }
 
     nav::-webkit-scrollbar {
@@ -68,29 +85,37 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
-    nav button.active, nav button:hover {
+    nav button:hover {
+      background-color: #00ddaa;
+      transform: translateY(-2px);
+    }
+
+    nav button.active {
       background-color: #00ddaa;
     }
 
+    /* ===== SECTIONS ===== */
     .section {
       display: none !important;
       max-width: 900px;
       margin: auto;
       padding: 2em;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .section.active,
     body:not([data-loaded]) #home {
       display: block !important;
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    h2 {
-      color: #00ffcc;
-      margin-top: 0;
-    }
-
+    /* ===== INPUTS & FORMS ===== */
     input, textarea, select {
       width: 100%;
       padding: 0.5em;
@@ -98,8 +123,16 @@
       margin-top: 0.5em;
       border-radius: 6px;
       border: none;
+      background: #1a1a1a;
+      color: #fff;
+      transition: background 0.3s ease;
     }
 
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid #00ffcc;
+    }
+
+    /* ===== BUTTONS ===== */
     .book-button, .social-link {
       display: inline-block;
       margin: 1em 0;
@@ -109,12 +142,37 @@
       text-decoration: none;
       font-weight: bold;
       border-radius: 8px;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
     .book-button:hover, .social-link:hover {
       background-color: #00ddaa;
+      transform: translateY(-2px);
     }
 
+    /* ===== STICKY FLOATING BOOK BUTTON ===== */
+    .floating-book-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00ffcc;
+      color: #000;
+      padding: 1em 1.5em;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .floating-book-btn:hover {
+      background: #00ddaa;
+      transform: scale(1.05);
+    }
+
+    /* ===== CONFETTI SCREEN ===== */
     #confetti-screen {
       display: none;
       position: fixed;
@@ -138,6 +196,7 @@
       pointer-events: none;
     }
 
+    /* ===== FOOTER ===== */
     footer {
       text-align: center;
       padding: 2em;
@@ -146,21 +205,35 @@
       margin-top: 2em;
     }
 
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       body {
         font-size: 1.2em;
       }
+
+      .floating-book-btn {
+        padding: 0.8em 1.2em;
+      }
+    }
+
+    /* ===== KEYFRAME ANIMATIONS ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Banner -->
   <div class="experimental-banner">
     Currently this website is for experimental purposes only. Hopefully the website will eventually be live for real bookings.
   </div>
 
+  <!-- Header -->
   <header>DJZ – Lighting. Sound. Hype.</header>
 
+  <!-- Navigation -->
   <nav>
     <button onclick="showSection('home')" class="active">Home</button>
     <button onclick="showSection('about')">About Me</button>
@@ -169,6 +242,7 @@
     <button onclick="showSection('contact')">Contact</button>
   </nav>
 
+  <!-- Main Content -->
   <main>
     <section id="home" class="section active">
       <h2>Welcome to DJZ’s Official Website</h2>
@@ -243,11 +317,16 @@
     </section>
   </main>
 
+  <!-- Confetti Thank You Screen -->
   <div id="confetti-screen">
     Thank you for submitting! I’ll be in contact with you shortly about your appointment.
   </div>
   <canvas id="confetti-canvas"></canvas>
 
+  <!-- Sticky Floating Book Button -->
+  <button class="floating-book-btn" onclick="showSection('book')">Book Me</button>
+
+  <!-- Footer -->
   <footer>
     <p>© 2025 DJZ. All rights reserved.</p>
     <p><strong>Accessibility:</strong> This site works with screen readers, keyboard navigation, and mobile devices. If something doesn’t work for you, please email <a href="mailto:booking.djz1@gmail.com">booking.djz1@gmail.com</a>.</p>
@@ -255,15 +334,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
+    /* Show Sections with Smooth Transitions */
     function showSection(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-      event.target.classList.add('active');
+
+      let targetButton = [...document.querySelectorAll('nav button')].find(btn => btn.textContent.toLowerCase().includes(id));
+      if (targetButton) targetButton.classList.add('active');
     }
 
+    /* Enable Page Loaded State */
     document.body.setAttribute("data-loaded", "true");
 
+    /* Confetti Submission Function */
     function confettiSubmit(event) {
       event.preventDefault();
       const form = event.target;
@@ -282,13 +366,14 @@
             document.getElementById("confetti-screen").style.display = "none";
             form.style.display = "block";
             form.reset();
-          }, 10000);
+          }, 8000);
         } else {
           alert("Something went wrong. Please try again.");
         }
       });
     }
 
+    /* Confetti Animation */
     function fireConfetti() {
       const duration = 4 * 1000;
       const end = Date.now() + duration;
@@ -314,6 +399,5 @@
       })();
     }
   </script>
-
 </body>
 </html>
