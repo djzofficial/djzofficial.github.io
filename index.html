@@ -5,29 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DJZ – Official Website</title>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZL0F3VE66"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-5ZL0F3VE66');
-  </script>
-
   <style>
-    /* ===== BASE STYLES ===== */
+    /* ===== BASE BODY ===== */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #0d0d0d;
       color: #f0f0f0;
-      font-size: 1.5em;
       overflow-x: hidden;
-      transition: background-color 0.5s ease, color 0.5s ease;
-    }
-
-    h2, h3 {
-      color: #00ffcc;
     }
 
     /* ===== LOADING SCREEN ===== */
@@ -38,28 +23,67 @@
       width: 100%;
       height: 100%;
       background: #000;
-      z-index: 99999;
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 99999;
+      transition: opacity 1s ease;
       overflow: hidden;
     }
 
+    /* ===== BIG DJZ TEXT ===== */
     #loading-text {
-      font-size: 5em;
-      color: #00ffcc;
+      font-size: 18vw; /* HUGE text, responsive */
+      font-weight: bold;
+      color: #00bfff; /* Bright bubble blue */
+      text-shadow: 0 0 40px #0088ff, 0 0 80px #0044ff;
       opacity: 0;
-      animation: floatInOut 4s ease forwards;
+      transform: scale(0.2) translateY(80px);
+      animation: bubblePop 4s ease forwards;
     }
 
-    @keyframes floatInOut {
-      0% { opacity: 0; transform: translateY(50px) scale(0.8); }
-      20% { opacity: 1; transform: translateY(0) scale(1); }
-      80% { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-50px) scale(0.8); }
+    /* ===== Bubble Effect Animation ===== */
+    @keyframes bubblePop {
+      0% {
+        opacity: 0;
+        transform: scale(0.2) translateY(80px);
+      }
+      20% {
+        opacity: 1;
+        transform: scale(1.3) translateY(0); /* "Pop" inflate */
+      }
+      30% {
+        transform: scale(1) translateY(0); /* Settle into place */
+      }
+      60% {
+        transform: scale(1.05) translateY(-10px); /* Tiny bounce */
+      }
+      80% {
+        opacity: 1;
+        transform: scale(1) translateY(-20px);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-80px); /* Float away */
+      }
     }
 
-    /* ===== EXPERIMENTAL BANNER ===== */
+    /* ===== Hide Site Initially ===== */
+    main, header, footer, nav, .experimental-banner {
+      visibility: hidden;
+    }
+
+    /* ===== After Loading Screen Gone ===== */
+    body.loaded main,
+    body.loaded header,
+    body.loaded footer,
+    body.loaded nav,
+    body.loaded .experimental-banner {
+      visibility: visible;
+      transition: visibility 0s ease, opacity 1s ease;
+    }
+
+    /* ===== Experimental Banner ===== */
     .experimental-banner {
       background-color: #ffcc00;
       color: #000;
@@ -67,188 +91,13 @@
       padding: 0.5em;
       font-weight: bold;
       font-size: 0.9em;
-      animation: slideDown 0.8s ease;
     }
 
-    @keyframes slideDown {
-      0% {transform: translateY(-100%); opacity: 0;}
-      100% {transform: translateY(0); opacity: 1;}
-    }
-
-    /* ===== HEADER ===== */
-    header {
-      background: linear-gradient(135deg, #00ffcc, #00bb99);
-      color: #000;
-      padding: 2em;
-      text-align: center;
-      font-size: 2.5em;
-      font-weight: bold;
-      animation: fadeIn 1s ease;
-    }
-
-    /* ===== NAVIGATION ===== */
-    nav {
-      display: flex;
-      justify-content: flex-start;
-      overflow-x: auto;
-      white-space: nowrap;
-      background: #1a1a1a;
-      padding: 1em;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-    }
-
-    nav::-webkit-scrollbar {
-      display: none;
-    }
-
-    nav button {
-      margin: 0 0.5em;
-      padding: 0.75em 1.5em;
-      font-size: 1em;
-      background: #00ffcc;
-      color: #000;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-
-    nav button:hover {
-      background-color: #00ddaa;
-      transform: translateY(-2px);
-    }
-
-    nav button.active {
-      background-color: #00ddaa;
-    }
-
-    /* ===== SECTIONS ===== */
-    .section {
-      display: none !important;
-      max-width: 900px;
-      margin: auto;
-      padding: 2em;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .section.active,
-    body:not([data-loaded]) #home {
-      display: block !important;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ===== INPUTS & FORMS ===== */
-    input, textarea, select {
-      width: 100%;
-      padding: 0.5em;
-      font-size: 1em;
-      margin-top: 0.5em;
-      border-radius: 6px;
-      border: none;
-      background: #1a1a1a;
-      color: #fff;
-      transition: background 0.3s ease;
-    }
-
-    input:focus, textarea:focus, select:focus {
-      outline: 2px solid #00ffcc;
-    }
-
-    /* ===== BUTTONS ===== */
-    .book-button, .social-link {
-      display: inline-block;
-      margin: 1em 0;
-      padding: 1em 2em;
-      background-color: #00ffcc;
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 8px;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-
-    .book-button:hover, .social-link:hover {
-      background-color: #00ddaa;
-      transform: translateY(-2px);
-    }
-
-    /* ===== STICKY FLOATING BOOK BUTTON ===== */
-    .floating-book-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #00ffcc;
-      color: #000;
-      padding: 1em 1.5em;
-      border: none;
-      border-radius: 50px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-
-    .floating-book-btn:hover {
-      background: #00ddaa;
-      transform: scale(1.05);
-    }
-
-    /* ===== CONFETTI SCREEN ===== */
-    #confetti-screen {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-color: #000000ee;
-      color: #00ffcc;
-      z-index: 9999;
-      text-align: center;
-      padding-top: 30vh;
-      font-size: 2em;
-    }
-
-    canvas#confetti-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10000;
-      pointer-events: none;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      text-align: center;
-      padding: 2em;
-      font-size: 0.9em;
-      background: #1a1a1a;
-      margin-top: 2em;
-    }
-
-    /* ===== RESPONSIVE ===== */
+    /* ===== Responsive: Slightly Smaller for Mobile ===== */
     @media (max-width: 768px) {
-      body {
-        font-size: 1.2em;
+      #loading-text {
+        font-size: 22vw;
       }
-
-      .floating-book-btn {
-        padding: 0.8em 1.2em;
-      }
-    }
-
-    /* ===== KEYFRAME ANIMATIONS ===== */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
     }
   </style>
 </head>
@@ -259,187 +108,38 @@
     <div id="loading-text">DJZ</div>
   </div>
 
-  <!-- Banner -->
+  <!-- Example Banner -->
   <div class="experimental-banner">
     Currently this website is for experimental purposes only. Hopefully the website will eventually be live for real bookings.
   </div>
 
-  <!-- Header -->
-  <header>DJZ – Lighting. Sound. Hype.</header>
+  <header>
+    <h1>DJZ – Lighting. Sound. Hype.</h1>
+  </header>
 
-  <!-- Navigation -->
-  <nav>
-    <button onclick="showSection('home')" class="active">Home</button>
-    <button onclick="showSection('about')">About Me</button>
-    <button onclick="showSection('services')">Packages</button>
-    <button onclick="showSection('book')">Book Me</button>
-    <button onclick="showSection('contact')">Contact</button>
-  </nav>
-
-  <!-- Main Content -->
   <main>
-    <section id="home" class="section active">
-      <h2>Welcome to DJZ’s Official Website</h2>
-      <p>I’m DJZ, a beat-dropping, light-synced, energy-pumping event specialist. Whether you need music, lighting, karaoke, or a full party experience — I’ve got you covered.</p>
-    </section>
-
-    <section id="about" class="section">
-      <h2>About Me</h2>
-      <p>I’m DJZ — a young tech-savvy DJ who runs live sound, lighting, karaoke, and digital events. I love creating unforgettable experiences for people through rhythm, lights, and energy.</p>
-      <ul>
-        <li>Newmark Party Mix II DJ Controller</li>
-        <li>Behringer XR12 Digital Mixer</li>
-        <li>iPad 10th Generation for DJing & Mixing</li>
-        <li>JBL Portable Speakers</li>
-        <li>2 Wireless Microphones</li>
-        <li>Wired DMX Lighting System (4 Fixtures)</li>
-        <li>Optional Projector for Karaoke Lyrics</li>
-      </ul>
-    </section>
-
-    <section id="services" class="section">
-      <h2>Packages</h2>
-      <ul>
-        <li><strong>Lighting</strong> – Custom synced lighting to your sound</li>
-        <li><strong>Sound</strong> – High-quality audio for your entire event</li>
-        <li><strong>Karaoke Displays</strong> – Project lyrics on-screen, live</li>
-      </ul>
-      <p><strong>Pricing:</strong> <em>All gigs are completely free right now.</em></p>
-    </section>
-
-    <section id="book" class="section">
-      <h2>Book DJZ</h2>
-      <p>Fill out the form below to request your event — I'll be in touch with you shortly!</p>
-
-      <form action="https://formspree.io/f/mnnpyadz" method="POST" onsubmit="confettiSubmit(event)">
-        <label>1. What is your name?</label>
-        <input type="text" name="name" required />
-
-        <label>2. What kind of event are you hiring me for?</label>
-        <input type="text" name="event-type" required />
-
-        <label>3. Would you like lighting effects?</label>
-        <input type="text" name="lighting" required />
-
-        <label>4. Would you like lyrics sync videos on a screen or projector?</label>
-        <input type="text" name="lyrics" required />
-
-        <label>5. Does the venue already have any audio equipment?</label>
-        <input type="text" name="audio-equipment" required />
-
-        <label>6. Does the venue already have any lighting equipment I can use?</label>
-        <input type="text" name="lighting-equipment" required />
-
-        <label>7. Does the venue have a screen or projector that I can use if you said yes to lyrics sync videos?</label>
-        <input type="text" name="screen-availability" required />
-
-        <label>8. What is the time and date of your event?</label>
-        <input type="datetime-local" name="event-datetime" required />
-
-        <label>9. Best way to contact you (email or phone number):</label>
-        <input type="text" name="contact-info" required />
-
-        <button type="submit" class="book-button">Send Request</button>
-      </form>
-    </section>
-
-    <section id="contact" class="section">
-      <h2>Contact & Social</h2>
-      <p><strong>Email:</strong> <a href="mailto:booking.djz1@gmail.com">booking.djz1@gmail.com</a></p>
-      <a href="https://www.facebook.com/share/16NeuiRHAU/?mibextid=wwXIfr" target="_blank" class="social-link">Facebook</a><br />
-      <a href="https://www.instagram.com/stevie_zylstra?igsh=eTR4YmtkMndlNXE0&utm_source=qr" target="_blank" class="social-link">Instagram</a>
-    </section>
+    <p>This is where your main site content will go after the animation ends.</p>
   </main>
 
-  <!-- Confetti Thank You Screen -->
-  <div id="confetti-screen">
-    Thank you for submitting! I’ll be in contact with you shortly about your appointment.
-  </div>
-  <canvas id="confetti-canvas"></canvas>
-
-  <!-- Sticky Floating Book Button -->
-  <button class="floating-book-btn" onclick="showSection('book')">Book Me</button>
-
-  <!-- Footer -->
   <footer>
     <p>© 2025 DJZ. All rights reserved.</p>
-    <p><strong>Accessibility:</strong> This site works with screen readers, keyboard navigation, and mobile devices. If something doesn’t work for you, please email <a href="mailto:booking.djz1@gmail.com">booking.djz1@gmail.com</a>.</p>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    /* Loading screen removal after 4 seconds */
+    /* ===== Loading Screen Logic ===== */
     window.addEventListener('load', () => {
       setTimeout(() => {
-        document.getElementById('loading-screen').style.display = 'none';
-      }, 4000); // 4 seconds
+        // Fade out the loading screen
+        const loader = document.getElementById('loading-screen');
+        loader.style.opacity = '0';
+
+        // Fully remove it after the fade
+        setTimeout(() => {
+          loader.style.display = 'none';
+          document.body.classList.add('loaded');
+        }, 1000);
+      }, 4000); // 4 seconds total
     });
-
-    /* Show Sections with Smooth Transitions */
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-
-      let targetButton = [...document.querySelectorAll('nav button')].find(btn => btn.textContent.toLowerCase().includes(id));
-      if (targetButton) targetButton.classList.add('active');
-    }
-
-    /* Enable Page Loaded State */
-    document.body.setAttribute("data-loaded", "true");
-
-    /* Confetti Submission Function */
-    function confettiSubmit(event) {
-      event.preventDefault();
-      const form = event.target;
-
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          form.style.display = "none";
-          document.getElementById("confetti-screen").style.display = "block";
-          fireConfetti();
-          setTimeout(() => {
-            location.href = "#home";
-            document.getElementById("confetti-screen").style.display = "none";
-            form.style.display = "block";
-            form.reset();
-          }, 8000);
-        } else {
-          alert("Something went wrong. Please try again.");
-        }
-      });
-    }
-
-    /* Confetti Animation */
-    function fireConfetti() {
-      const duration = 4 * 1000;
-      const end = Date.now() + duration;
-      const canvas = document.getElementById('confetti-canvas');
-      const confettiInstance = confetti.create(canvas, { resize: true });
-
-      (function frame() {
-        confettiInstance({
-          particleCount: 2,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 },
-        });
-        confettiInstance({
-          particleCount: 2,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 },
-        });
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
-        }
-      })();
-    }
   </script>
 </body>
 </html>
