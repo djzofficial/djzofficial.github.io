@@ -30,6 +30,35 @@
       color: #00ffcc;
     }
 
+    /* ===== LOADING SCREEN ===== */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #loading-text {
+      font-size: 5em;
+      color: #00ffcc;
+      opacity: 0;
+      animation: floatInOut 4s ease forwards;
+    }
+
+    @keyframes floatInOut {
+      0% { opacity: 0; transform: translateY(50px) scale(0.8); }
+      20% { opacity: 1; transform: translateY(0) scale(1); }
+      80% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-50px) scale(0.8); }
+    }
+
     /* ===== EXPERIMENTAL BANNER ===== */
     .experimental-banner {
       background-color: #ffcc00;
@@ -225,6 +254,11 @@
 </head>
 <body>
 
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen">
+    <div id="loading-text">DJZ</div>
+  </div>
+
   <!-- Banner -->
   <div class="experimental-banner">
     Currently this website is for experimental purposes only. Hopefully the website will eventually be live for real bookings.
@@ -332,8 +366,16 @@
     <p><strong>Accessibility:</strong> This site works with screen readers, keyboard navigation, and mobile devices. If something doesn’t work for you, please email <a href="mailto:booking.djz1@gmail.com">booking.djz1@gmail.com</a>.</p>
   </footer>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
+    /* Loading screen removal after 4 seconds */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loading-screen').style.display = 'none';
+      }, 4000); // 4 seconds
+    });
+
     /* Show Sections with Smooth Transitions */
     function showSection(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
