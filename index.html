@@ -6,17 +6,16 @@
   <title>DJZ – Official Website</title>
 
   <style>
-    /* ===== BODY BACKGROUND WITH ANIMATED GRADIENT ===== */
+    /* ===== BODY BACKGROUND ===== */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(-45deg, #1f003f, #0077ff, #ff00aa, #00ffcc);
       background-size: 400% 400%;
       animation: gradientShift 15s ease infinite;
-      color: #f0f0f0;
+      color: #f8f8f8;
       font-size: 1.5em;
       overflow-x: hidden;
-      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     @keyframes gradientShift {
@@ -30,19 +29,19 @@
       text-align: center;
       font-size: 3em;
       padding: 1.5em;
-      background: rgba(0, 0, 0, 0.4);
-      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      color: #ffffff;
       font-weight: bold;
-      text-shadow: 0 0 20px #ff00aa, 0 0 40px #0077ff;
+      text-shadow: 0 0 10px #00ffcc, 0 0 20px #ff00aa;
       animation: glowPulse 5s ease-in-out infinite;
     }
 
     @keyframes glowPulse {
       0%, 100% {
-        text-shadow: 0 0 20px #ff00aa, 0 0 40px #0077ff;
+        text-shadow: 0 0 10px #00ffcc, 0 0 20px #ff00aa;
       }
       50% {
-        text-shadow: 0 0 30px #00ffcc, 0 0 60px #ff00aa;
+        text-shadow: 0 0 20px #ff00aa, 0 0 40px #0077ff;
       }
     }
 
@@ -52,36 +51,40 @@
       justify-content: center;
       flex-wrap: wrap;
       padding: 1em;
-      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.4);
       position: sticky;
       top: 0;
       z-index: 999;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
     }
 
     nav button {
       margin: 0.5em;
-      padding: 0.75em 1.5em;
-      font-size: 1em;
+      padding: 0.9em 1.8em;
+      font-size: 1.2em;
       color: white;
       background: linear-gradient(45deg, #ff00aa, #0077ff, #00ffcc);
       background-size: 200% 200%;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
+      text-shadow: 0 0 5px #000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
       transition: all 0.3s ease;
     }
 
     nav button:hover {
       background-position: 100% 0%;
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #00ffcc, 0 0 20px #0077ff;
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #00ffcc, 0 0 30px #ff00aa;
     }
 
     nav button.active {
-      border: 2px solid #00ffcc;
-      box-shadow: 0 0 15px #ff00aa;
+      border: 3px solid #00ffcc;
+      box-shadow: 0 0 25px #ff00aa, 0 0 35px #00ffcc;
+      transform: translateY(-2px);
     }
 
     /* ===== EXPERIMENTAL BANNER ===== */
@@ -91,16 +94,10 @@
       text-align: center;
       padding: 0.5em;
       font-weight: bold;
-      font-size: 0.9em;
-      animation: slideDown 0.8s ease;
+      font-size: 1em;
     }
 
-    @keyframes slideDown {
-      0% {transform: translateY(-100%); opacity: 0;}
-      100% {transform: translateY(0); opacity: 1;}
-    }
-
-    /* ===== SECTIONS ===== */
+    /* ===== SECTION CONTAINERS ===== */
     .section {
       display: none !important;
       max-width: 900px;
@@ -108,10 +105,10 @@
       padding: 2em;
       opacity: 0;
       transform: translateY(20px);
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.65);
+      border-radius: 15px;
       transition: opacity 0.5s ease, transform 0.5s ease;
-      box-shadow: 0 0 30px rgba(0,0,0,0.6);
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
     }
 
     .section.active,
@@ -121,40 +118,62 @@
       transform: translateY(0);
     }
 
-    /* ===== FORM INPUTS ===== */
+    /* ===== TITLES & TEXT ===== */
+    h2 {
+      font-size: 2.5em;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 1em;
+      text-shadow: 0 0 10px #0077ff, 0 0 20px #ff00aa;
+    }
+
+    p, li {
+      font-size: 1.1em;
+      color: #f8f8f8;
+      text-shadow: 0 0 4px #000;
+      line-height: 1.6;
+    }
+
+    /* ===== FORM ELEMENTS ===== */
     input, textarea, select {
       width: 100%;
-      padding: 0.5em;
-      font-size: 1em;
-      margin-top: 0.5em;
-      border-radius: 6px;
+      padding: 0.6em;
+      font-size: 1.1em;
+      margin-top: 0.6em;
+      border-radius: 8px;
       border: none;
-      background: #1a1a1a;
+      background: #222;
       color: #fff;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
 
     input:focus, textarea:focus, select:focus {
-      outline: 2px solid #00ffcc;
+      background: #333;
+      box-shadow: 0 0 10px #00ffcc;
+      outline: none;
     }
 
-    /* ===== BUTTONS ===== */
+    /* ===== PRIMARY BUTTONS ===== */
     .book-button, .social-link {
       display: inline-block;
       margin: 1em 0;
-      padding: 1em 2em;
-      background: linear-gradient(45deg, #ff00aa, #00ffcc);
-      color: #000;
+      padding: 1em 2.2em;
+      font-size: 1.2em;
+      background: linear-gradient(45deg, #ff00aa, #00ffcc, #0077ff);
+      background-size: 200% 200%;
+      color: white;
       text-decoration: none;
       font-weight: bold;
-      border-radius: 8px;
-      transition: background 0.3s ease, transform 0.2s ease;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+      text-shadow: 0 0 5px #000;
+      transition: all 0.3s ease;
     }
 
     .book-button:hover, .social-link:hover {
       background-position: 100% 0%;
-      transform: translateY(-2px);
-      box-shadow: 0 0 12px #ff00aa, 0 0 24px #00ffcc;
+      transform: scale(1.08);
+      box-shadow: 0 0 15px #00ffcc, 0 0 25px #ff00aa;
     }
 
     /* ===== STICKY FLOATING BOOK BUTTON ===== */
@@ -164,16 +183,17 @@
       right: 20px;
       background: linear-gradient(45deg, #00ffcc, #ff00aa, #0077ff);
       background-size: 300% 300%;
-      color: #000;
-      padding: 1em 1.5em;
+      color: #fff;
+      font-size: 1.3em;
+      padding: 1.2em 1.8em;
       border: none;
       border-radius: 50px;
       font-weight: bold;
       cursor: pointer;
       z-index: 10000;
-      box-shadow: 0 0 20px #0077ff;
+      box-shadow: 0 0 20px #0077ff, 0 0 40px #ff00aa;
       animation: rainbowPulse 5s infinite;
-      transition: transform 0.3s ease, background 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     @keyframes rainbowPulse {
@@ -183,27 +203,35 @@
     }
 
     .floating-book-btn:hover {
-      transform: scale(1.1);
+      transform: scale(1.15);
+      box-shadow: 0 0 30px #ff00aa, 0 0 50px #00ffcc;
     }
 
     /* ===== FOOTER ===== */
     footer {
       text-align: center;
       padding: 2em;
-      font-size: 0.9em;
-      background: rgba(0,0,0,0.7);
+      font-size: 1em;
+      background: rgba(0,0,0,0.8);
       margin-top: 2em;
       color: #fff;
+      text-shadow: 0 0 5px #000;
     }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       body {
-        font-size: 1.2em;
+        font-size: 1.1em;
+      }
+
+      nav button {
+        padding: 0.8em 1.4em;
+        font-size: 1em;
       }
 
       .floating-book-btn {
-        padding: 0.8em 1.2em;
+        font-size: 1.1em;
+        padding: 1em 1.5em;
       }
     }
   </style>
@@ -260,7 +288,6 @@
 
     <section id="book" class="section">
       <h2>Book DJZ</h2>
-      <p>Fill out the form below to request your event — I'll be in touch with you shortly!</p>
       <form>
         <label>Your Name:</label>
         <input type="text" required>
